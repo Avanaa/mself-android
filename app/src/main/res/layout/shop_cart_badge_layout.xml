@@ -9,14 +9,16 @@
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground">
 
-    <ImageView
+    <ImageButton
+        android:id="@+id/menu_item_shop_cart_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_shopping_cart_ic"/>
+        app:srcCompat="@drawable/ic_shopping_cart_ic"
+        android:background="@android:color/transparent"/>
 
     <TextView
-        android:id="@+id/cart_badge"
+        android:id="@+id/menu_item_shop_cart_text"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_gravity="right|end|top"

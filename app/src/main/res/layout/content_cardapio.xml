@@ -9,8 +9,9 @@
     tools:showIn="@layout/activity_cardapio">
 
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lista_cardapio"
+        android:scrollbars="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"

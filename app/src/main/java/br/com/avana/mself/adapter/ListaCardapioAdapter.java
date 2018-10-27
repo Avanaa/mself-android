@@ -1,16 +1,13 @@
 package br.com.avana.mself.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -18,53 +15,89 @@ import br.com.avana.mself.R;
 import br.com.avana.mself.async.LoadImgByURLTask;
 import br.com.avana.mself.model.PratoModel;
 
-public class ListaCardapioAdapter extends BaseAdapter {
+public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdapter.ViewItemHolder>  {
 
-    private final List<PratoModel> cardapio;
+    private List<PratoModel> cardapio;
     private Activity activity;
-    private StorageReference mStorageRef;
 
     public ListaCardapioAdapter(List<PratoModel> cardapio, Activity activity){
         this.cardapio = cardapio;
         this.activity = activity;
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+    }
+
+    @NonNull
+    @Override
+    public ViewItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+
+        PratoModel pratoModel = cardapio.get(i);
+
+        ViewItemHolder viewItemHolder = new ViewItemHolder(
+                LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_cardapio, parent, false));
+
+        new LoadImgByURLTask(viewItemHolder.getImagem()).execute(pratoModel.getImage());
+        viewItemHolder.getTitulo().setText(pratoModel.getTitulo());
+        viewItemHolder.getDescricao().setText(pratoModel.getDescricao());
+        viewItemHolder.getPreco().setText(String.format(activity.getString(R.string.moeda), pratoModel.getPreco()));
+
+        return viewItemHolder;
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(@NonNull ViewItemHolder viewItemHolder, int i) {
+
+        PratoModel pratoModel = cardapio.get(i);
+
+        new LoadImgByURLTask(viewItemHolder.getImagem()).execute(pratoModel.getImage());
+        viewItemHolder.getTitulo().setText(pratoModel.getTitulo());
+        viewItemHolder.getDescricao().setText(pratoModel.getDescricao());
+        viewItemHolder.getPreco().setText(String.format(activity.getString(R.string.moeda), pratoModel.getPreco()));
+    }
+
+    @Override
+    public int getItemCount() {
         return cardapio.size();
     }
 
-    @Override
-    public PratoModel getItem(int position) {
-        return cardapio.get(position);
-    }
+    public static class ViewItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+        private View itemView;
+        private boolean isExpanded;
 
-    @SuppressLint("ViewHolder")
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+        public ViewItemHolder(@NonNull View itemView) {
+            super(itemView);
+            this.itemView = itemView;
+            this.itemView.setOnClickListener(this);
+        }
 
-        View view = activity.getLayoutInflater().inflate(R.layout.item_cardapio, parent, false);
+        @Override
+        public void onClick(View v) {
+            this.isExpanded = !this.isExpanded;
+            setLayout();
+        }
 
-        PratoModel pratoModel = cardapio.get(position);
+        private void setLayout(){
+            if (isExpanded){
+                getDescricao().setVisibility(View.VISIBLE);
+            } else {
+                getDescricao().setVisibility(View.GONE);
+            }
+        }
 
-        ImageView imagem = view.findViewById(R.id.item_cardapio_image);
-        new LoadImgByURLTask(imagem).execute(pratoModel.getImage());
+        public ImageView getImagem() {
+            return (ImageView) itemView.findViewById(R.id.item_cardapio_image);
+        }
 
-        TextView titulo = view.findViewById(R.id.item_cardapio_titulo);
-        titulo.setText(pratoModel.getTitulo());
+        public TextView getTitulo() {
+            return (TextView) itemView.findViewById(R.id.item_cardapio_titulo);
+        }
 
-        TextView descricao = view.findViewById(R.id.item_cardapio_descricao);
-        descricao.setText(pratoModel.getDescricao());
+        public TextView getDescricao() {
+            return (TextView) itemView.findViewById(R.id.item_cardapio_descricao);
+        }
 
-        TextView preco = view.findViewById(R.id.item_cardapio_preco);
-        preco.setText(String.format(activity.getString(R.string.moeda), pratoModel.getPreco()));
-
-        return  view;
+        public TextView getPreco() {
+            return (TextView) itemView.findViewById(R.id.item_cardapio_preco);
+        }
     }
 }

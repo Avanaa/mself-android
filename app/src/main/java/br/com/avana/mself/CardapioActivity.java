@@ -66,7 +66,7 @@ public class CardapioActivity extends AppCompatActivity implements ChildEventLis
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(new ListaCardapioAdapter(cardapio, this));
+        recyclerView.setAdapter(new ListaCardapioAdapter(cardapio));
 
         /*
         listView.setAdapter(new ListaCardapioAdapter(cardapio, this));

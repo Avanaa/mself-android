@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,28 +20,28 @@ import br.com.avana.mself.model.PratoModel;
 public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdapter.ViewItemHolder>  {
 
     private List<PratoModel> cardapio;
-    private Activity activity;
 
-    public ListaCardapioAdapter(List<PratoModel> cardapio, Activity activity){
+    public ListaCardapioAdapter(List<PratoModel> cardapio){
         this.cardapio = cardapio;
-        this.activity = activity;
     }
 
     @NonNull
     @Override
-    public ViewItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public ViewItemHolder onCreateViewHolder(@NonNull final ViewGroup parent, int i) {
 
         PratoModel pratoModel = cardapio.get(i);
 
         ViewItemHolder viewItemHolder = new ViewItemHolder(
                 LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_cardapio, parent, false));
+                        .inflate(R.layout.item_cardapio, parent, false),
+                pratoModel);
 
-        new LoadImgByURLTask(viewItemHolder.getImagem()).execute(pratoModel.getImage());
-        viewItemHolder.getTitulo().setText(pratoModel.getTitulo());
-        viewItemHolder.getDescricao().setText(pratoModel.getDescricao());
-        viewItemHolder.getPreco().setText(String.format(activity.getString(R.string.moeda), pratoModel.getPreco()));
-
+        viewItemHolder.getBtnAdicionar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(parent.getContext(), "Adicionado!", Toast.LENGTH_LONG).show();
+            }
+        });
         return viewItemHolder;
     }
 
@@ -47,11 +49,7 @@ public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdap
     public void onBindViewHolder(@NonNull ViewItemHolder viewItemHolder, int i) {
 
         PratoModel pratoModel = cardapio.get(i);
-
-        new LoadImgByURLTask(viewItemHolder.getImagem()).execute(pratoModel.getImage());
-        viewItemHolder.getTitulo().setText(pratoModel.getTitulo());
-        viewItemHolder.getDescricao().setText(pratoModel.getDescricao());
-        viewItemHolder.getPreco().setText(String.format(activity.getString(R.string.moeda), pratoModel.getPreco()));
+        viewItemHolder.setValuesByItem(pratoModel);
     }
 
     @Override
@@ -63,11 +61,29 @@ public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdap
 
         private View itemView;
         private boolean isExpanded;
+        PratoModel item;
 
-        public ViewItemHolder(@NonNull View itemView) {
+        private ViewItemHolder(@NonNull View itemView, PratoModel pratoModel) {
             super(itemView);
+
             this.itemView = itemView;
             this.itemView.setOnClickListener(this);
+            this.item = pratoModel;
+            setValues();
+        }
+
+        private void setValues(){
+            assert item != null;
+
+            new LoadImgByURLTask(getImagem()).execute(item.getImage());
+            getTitulo().setText(item.getTitulo());
+            getDescricao().setText(item.getDescricao());
+            getPreco().setText(String.format("R$ %s", item.getPreco()));
+        }
+
+        private void setValuesByItem(PratoModel item){
+            this.item = item;
+            setValues();
         }
 
         @Override
@@ -79,25 +95,31 @@ public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdap
         private void setLayout(){
             if (isExpanded){
                 getDescricao().setVisibility(View.VISIBLE);
+                getBtnAdicionar().setVisibility(View.VISIBLE);
             } else {
                 getDescricao().setVisibility(View.GONE);
+                getBtnAdicionar().setVisibility(View.GONE);
             }
         }
 
-        public ImageView getImagem() {
+        private ImageView getImagem() {
             return (ImageView) itemView.findViewById(R.id.item_cardapio_image);
         }
 
-        public TextView getTitulo() {
+        private TextView getTitulo() {
             return (TextView) itemView.findViewById(R.id.item_cardapio_titulo);
         }
 
-        public TextView getDescricao() {
+        private TextView getPreco() {
+            return (TextView) itemView.findViewById(R.id.item_cardapio_preco);
+        }
+
+        private TextView getDescricao() {
             return (TextView) itemView.findViewById(R.id.item_cardapio_descricao);
         }
 
-        public TextView getPreco() {
-            return (TextView) itemView.findViewById(R.id.item_cardapio_preco);
+        private Button getBtnAdicionar(){
+            return (Button) itemView.findViewById(R.id.item_cardapio_adicionar);
         }
     }
 }

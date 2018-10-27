@@ -12,4 +12,5 @@
     <string name="zero">0</string>
     <string name="historico">Historico</string>
     <string name="configuracoes">Configurações</string>
+    <string name="adicionar_ao_pedido">Adicionar ao pedido</string>
 </resources>

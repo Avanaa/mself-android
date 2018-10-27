@@ -1,11 +1,24 @@
-<menu xmlns:tools="http://schemas.android.com/tools"
+<menu
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="br.com.avana">
+    tools:context=".CardapioActivity">
 
     <item
-        android:id="@+id/action_save"
-        android:title="@string/action_save"
+        android:id="@+id/menu_item_history"
+        android:icon="@drawable/ic_history"
         app:showAsAction="always"
-        android:icon="@android:drawable/ic_menu_save" />
+        android:title="@string/historico"/>
+
+    <item
+        android:id="@+id/menu_item_cart"
+        android:icon="@drawable/ic_shopping_cart_ic"
+        app:showAsAction="always"
+        android:title="@string/carrinho"/>
+
+    <item
+        android:id="@+id/menu_item_settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="always"
+        android:title="@string/configuracoes"/>
 </menu>

@@ -45,25 +45,26 @@ public class ListaCardapioAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        @SuppressLint("ViewHolder") View itemView
-                = activity.getLayoutInflater().inflate(R.layout.item_cardapio, parent, false);
+
+        View view = activity.getLayoutInflater().inflate(R.layout.item_cardapio, parent, false);
 
         PratoModel pratoModel = cardapio.get(position);
 
-        TextView titulo = itemView.findViewById(R.id.item_cardapio_titulo);
-        titulo.setText(pratoModel.getTitulo());
-
-        TextView descricao = itemView.findViewById(R.id.item_cardapio_descricao);
-        descricao.setText(pratoModel.getDescricao());
-
-        TextView preco = itemView.findViewById(R.id.item_cardapio_preco);
-        preco.setText("R$ " + pratoModel.getPreco());
-
-        ImageView imagem = itemView.findViewById(R.id.item_cardapio_image);
+        ImageView imagem = view.findViewById(R.id.item_cardapio_image);
         new LoadImgByURLTask(imagem).execute(pratoModel.getImage());
 
-        return  itemView;
+        TextView titulo = view.findViewById(R.id.item_cardapio_titulo);
+        titulo.setText(pratoModel.getTitulo());
+
+        TextView descricao = view.findViewById(R.id.item_cardapio_descricao);
+        descricao.setText(pratoModel.getDescricao());
+
+        TextView preco = view.findViewById(R.id.item_cardapio_preco);
+        preco.setText(String.format(activity.getString(R.string.moeda), pratoModel.getPreco()));
+
+        return  view;
     }
 }

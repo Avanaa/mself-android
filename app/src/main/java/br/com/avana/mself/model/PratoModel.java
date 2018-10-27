@@ -1,6 +1,8 @@
 package br.com.avana.mself.model;
 
-public class PratoModel {
+import java.io.Serializable;
+
+public class PratoModel implements Serializable {
 
     private String codigo;
     private String titulo;

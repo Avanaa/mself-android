@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">mself</string>
+    <string name="cardapio">Cardápio</string>
+    <string name="moeda">R$ %s</string>
+    <string name="descricao">Descrição</string>
+    <string name="preco">R$ 0.00</string>
+    <string name="titulo">Titulo</string>
+    <string name="pedir">Pedir</string>
+    <string name="title_activity_cardapio">Cardápio</string>
+    <string name="carrinho">Carrinho</string>
+    <string name="erro_banco_aviso">Erro no banco de dados. Tente se conectar em outro momento</string>
+    <string name="zero">0</string>
+    <string name="historico">Historico</string>
+    <string name="configuracoes">Configurações</string>
 </resources>

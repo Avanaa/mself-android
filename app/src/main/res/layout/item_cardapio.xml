@@ -15,6 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:cardCornerRadius="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +39,7 @@
                 app:layout_constraintVertical_bias="0.0"/>
 
             <View
+                android:id="@+id/item_cardapio_divider"
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:background="@android:color/holo_orange_dark"
@@ -47,25 +49,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/item_cardapio_image"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/item_cardapio_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:background="@android:drawable/screen_background_dark_transparent"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:text="Caldinho de cuscuz"
-                android:textColor="@android:color/white"
+                android:layout_marginTop="8dp"
+                android:text="@string/titulo"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/item_cardapio_image"
+                android:textColor="@android:color/white"
+                android:background="@android:drawable/screen_background_dark_transparent"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/item_cardapio_divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/item_cardapio_image"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
@@ -73,13 +76,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="16dp"
-                android:text="Caldinho delicioso vai tomar no cu essa merda é muito boa porra"
+                android:layout_marginTop="8dp"
+                android:text="@string/descricao"
                 android:textSize="16sp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/item_cardapio_titulo"
-                app:layout_constraintTop_toBottomOf="@+id/item_cardapio_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/item_cardapio_divider"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -88,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                android:text="R$ 10,00"
+                android:text="@string/preco"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -97,6 +102,7 @@
                 app:layout_constraintStart_toStartOf="@+id/item_cardapio_titulo"
                 app:layout_constraintTop_toBottomOf="@+id/item_cardapio_descricao"
                 app:layout_constraintVertical_bias="0.0" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

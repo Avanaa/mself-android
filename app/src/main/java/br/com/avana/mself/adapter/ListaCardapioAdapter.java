@@ -1,6 +1,7 @@
 package br.com.avana.mself.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.avana.mself.CardapioActivity;
+import br.com.avana.mself.DetalhesActivity;
 import br.com.avana.mself.R;
 import br.com.avana.mself.async.LoadImgByURLTask;
 import br.com.avana.mself.model.PratoModel;
@@ -20,26 +23,30 @@ import br.com.avana.mself.model.PratoModel;
 public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdapter.ViewItemHolder>  {
 
     private List<PratoModel> cardapio;
+    private Activity activity;
 
-    public ListaCardapioAdapter(List<PratoModel> cardapio){
+    public ListaCardapioAdapter(List<PratoModel> cardapio, Activity activity){
         this.cardapio = cardapio;
+        this.activity = activity;
     }
 
     @NonNull
     @Override
     public ViewItemHolder onCreateViewHolder(@NonNull final ViewGroup parent, int i) {
 
-        PratoModel pratoModel = cardapio.get(i);
+        final PratoModel pratoModel = cardapio.get(i);
 
-        ViewItemHolder viewItemHolder = new ViewItemHolder(
+        final ViewItemHolder viewItemHolder = new ViewItemHolder(
                 LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_cardapio, parent, false),
                 pratoModel);
 
-        viewItemHolder.getBtnAdicionar().setOnClickListener(new View.OnClickListener() {
+        viewItemHolder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(parent.getContext(), "Adicionado!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(activity, DetalhesActivity.class);
+                intent.putExtra("prato", cardapio.get(viewItemHolder.getAdapterPosition()));
+                activity.startActivityForResult(intent, CardapioActivity.DETALHES_REQUEST);
             }
         });
         return viewItemHolder;
@@ -57,7 +64,7 @@ public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdap
         return cardapio.size();
     }
 
-    public static class ViewItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewItemHolder extends RecyclerView.ViewHolder {
 
         private View itemView;
         private boolean isExpanded;
@@ -67,14 +74,12 @@ public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdap
             super(itemView);
 
             this.itemView = itemView;
-            this.itemView.setOnClickListener(this);
             this.item = pratoModel;
             setValues();
         }
 
         private void setValues(){
             assert item != null;
-
             new LoadImgByURLTask(getImagem()).execute(item.getImage());
             getTitulo().setText(item.getTitulo());
             getDescricao().setText(item.getDescricao());
@@ -86,20 +91,8 @@ public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdap
             setValues();
         }
 
-        @Override
-        public void onClick(View v) {
-            this.isExpanded = !this.isExpanded;
-            setLayout();
-        }
-
-        private void setLayout(){
-            if (isExpanded){
-                getDescricao().setVisibility(View.VISIBLE);
-                getBtnAdicionar().setVisibility(View.VISIBLE);
-            } else {
-                getDescricao().setVisibility(View.GONE);
-                getBtnAdicionar().setVisibility(View.GONE);
-            }
+        private View getView(){
+            return this.itemView;
         }
 
         private ImageView getImagem() {
@@ -116,10 +109,6 @@ public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdap
 
         private TextView getDescricao() {
             return (TextView) itemView.findViewById(R.id.item_cardapio_descricao);
-        }
-
-        private Button getBtnAdicionar(){
-            return (Button) itemView.findViewById(R.id.item_cardapio_adicionar);
         }
     }
 }

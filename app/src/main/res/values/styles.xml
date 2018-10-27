@@ -12,4 +12,22 @@
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Theme.App.Base" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">#000</item>
+        <item name="colorControlActivated">@android:color/darker_gray</item>
+        <item name="colorControlHighlight">@android:color/darker_gray</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="@style/Base.ThemeOverlay.AppCompat.Dialog">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="@style/Base.ThemeOverlay.AppCompat.Dialog">
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="@style/Base.ThemeOverlay.AppCompat.Dialog">
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+    </style>
 </resources>

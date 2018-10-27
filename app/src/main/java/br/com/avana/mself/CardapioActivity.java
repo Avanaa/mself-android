@@ -1,5 +1,6 @@
 package br.com.avana.mself;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
@@ -32,6 +33,10 @@ import br.com.avana.mself.model.PedidoModel;
 import br.com.avana.mself.model.PratoModel;
 
 public class CardapioActivity extends AppCompatActivity implements ChildEventListener {
+
+    public static final int ITEM_CRIADO_RESULT = 1;
+    public static final int ITEM_CANCELADO_RESULT = 0;
+    public static final int DETALHES_REQUEST = 2;
 
     DatabaseReference mRef;
     List<PratoModel> cardapio = new ArrayList<>();
@@ -66,25 +71,19 @@ public class CardapioActivity extends AppCompatActivity implements ChildEventLis
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(new ListaCardapioAdapter(cardapio));
-
-        /*
-        listView.setAdapter(new ListaCardapioAdapter(cardapio, this));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PratoModel prato = (PratoModel) parent.getItemAtPosition(position);
-                startDetalhes(prato);
-            }
-        });
-        */
+        recyclerView.setAdapter(new ListaCardapioAdapter(cardapio, this));
     }
 
-    private void startDetalhes(PratoModel prato) {
-
-        Intent detalhesIntent = new Intent(CardapioActivity.this, DetalhesActivity.class);
-        detalhesIntent.putExtra("prato", prato);
-        startActivity(detalhesIntent);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CardapioActivity.DETALHES_REQUEST){
+            switch (resultCode){
+                case CardapioActivity.ITEM_CRIADO_RESULT:
+                    break;
+                case CardapioActivity.ITEM_CANCELADO_RESULT:
+                    break;
+            }
+        }
     }
 
     @Override

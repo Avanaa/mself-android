@@ -1,203 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".DetalhesActivity">
+    android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppBarOverlay">
 
-        <ImageView
-            android:id="@+id/detalhes_top"
-            android:layout_width="0dp"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@android:color/holo_orange_dark" />
+            android:background="@android:color/holo_orange_dark"
+            app:popupTheme="@style/PopupOverlay" />
 
-        <TextView
-            android:id="@+id/detalhes_titulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Titulo"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/detalhes_top"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detalhes_top"
-            app:layout_constraintCircleRadius="@dimen/cardview_default_radius"
-            app:cardCornerRadius="@dimen/cardview_default_radius">
+    <include layout="@layout/content_detalhes"/>
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-                <ImageView
-                    android:id="@+id/detalhes_imagem"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"/>
-
-                <TextView
-                    android:id="@+id/detalhes_preco"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:drawable/screen_background_dark_transparent"
-                    android:padding="4dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/detalhes_imagem"
-                    app:layout_constraintEnd_toEndOf="@+id/detalhes_imagem"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/detalhes_imagem"
-                    app:layout_constraintTop_toTopOf="@+id/detalhes_imagem"
-                    app:layout_constraintVertical_bias="1.0"
-                    tools:text="@string/preco" />
-
-                <TextView
-                    android:id="@+id/detalhes_descricao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="24dp"
-                    android:text="Descricao"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detalhes_imagem" />
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <TextView
-            android:id="@+id/detalhes_quantidade_txtView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Quantidade"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/detalhes_quantidade"
-            app:layout_constraintEnd_toStartOf="@+id/detalhes_quantidade"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/detalhes_quantidade" />
-
-        <Button
-            android:id="@+id/detalhes_quantidade"
-            android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/white"
-            android:text="1"
-            android:textColor="@android:color/holo_orange_dark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/detalhe_observacoes_txtView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Observações"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/detalhes_btn_observacoes"
-            app:layout_constraintEnd_toStartOf="@+id/detalhes_btn_observacoes"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/detalhes_btn_observacoes" />
-
-        <Button
-            android:id="@+id/detalhes_btn_observacoes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/white"
-            android:text="+"
-            android:textColor="@android:color/holo_orange_dark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detalhes_quantidade"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/detalhes_btn_adicionar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@android:color/holo_orange_dark"
-            android:text="@string/adicionar_ao_pedido"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detalhes_btn_observacoes"
-            app:layout_constraintVertical_bias="1.0" />
-
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+</android.support.design.widget.CoordinatorLayout>

@@ -3,6 +3,8 @@ package br.com.avana.mself;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +22,9 @@ public class DetalhesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         setPrato();
 
@@ -42,16 +47,12 @@ public class DetalhesActivity extends AppCompatActivity {
                 newFragment.show(fragmentManager, "dialog");
             }
         });
+    }
 
-        Button btnAdicionar = findViewById(R.id.detalhes_btn_adicionar);
-        btnAdicionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getIntent().putExtra("pratoCriado", pratoModel);
-                setResult(CardapioActivity.ITEM_CRIADO_RESULT);
-                finish();
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalhes, menu);
+        return true;
     }
 
     private void setPrato() {
@@ -59,9 +60,6 @@ public class DetalhesActivity extends AppCompatActivity {
 
         ImageView imgView = findViewById(R.id.detalhes_imagem);
         new LoadImgByURLTask(imgView).execute(pratoModel.getImage());
-
-        TextView txtViewTitulo = findViewById(R.id.detalhes_titulo);
-        txtViewTitulo.setText(pratoModel.getTitulo());
 
         TextView txtViewdescricao = findViewById(R.id.detalhes_descricao);
         txtViewdescricao.setText(pratoModel.getDescricao());

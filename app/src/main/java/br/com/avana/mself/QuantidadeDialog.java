@@ -24,7 +24,7 @@ public class QuantidadeDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
 
-        builder.setTitle(R.string.observacoes)
+        builder.setTitle(R.string.quantidade)
                 .setItems(R.array.detalhes_quantidade, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

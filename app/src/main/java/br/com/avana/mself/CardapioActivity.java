@@ -1,22 +1,14 @@
 package br.com.avana.mself;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -24,22 +16,25 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.avana.mself.adapter.ListaCardapioAdapter;
-import br.com.avana.mself.model.PedidoModel;
-import br.com.avana.mself.model.PratoModel;
+import br.com.avana.mself.model.ItemModel;
+import br.com.avana.mself.model.ItemPedidoModel;
 
 public class CardapioActivity extends AppCompatActivity implements ChildEventListener {
 
-    public static final int ITEM_CRIADO_RESULT = 1;
-    public static final int ITEM_CANCELADO_RESULT = 0;
+    public static final int ITEM_PEDIDO_CRIADO_RESULT = 1;
+    public static final int ITEM_PEDIDO_CANCELADO_RESULT = 0;
     public static final int DETALHES_REQUEST = 2;
+    public static final int CARRINHO_REQUEST = 3;
 
     DatabaseReference mRef;
-    List<PratoModel> cardapio = new ArrayList<>();
+    List<ItemModel> cardapio = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +44,9 @@ public class CardapioActivity extends AppCompatActivity implements ChildEventLis
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mRef = FirebaseDatabase.getInstance().getReference("prato");
+        mRef = FirebaseDatabase.getInstance()
+                .getReference("item");
+
         mRef.addChildEventListener(this);
     }
 
@@ -61,7 +58,13 @@ public class CardapioActivity extends AppCompatActivity implements ChildEventLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this, "Ação não implementada ainda", Toast.LENGTH_LONG).show();
+
+        switch (item.getItemId()){
+            case R.id.menu_item_cart:
+                Intent intent = new Intent(this, CarrinhoActivity.class);
+                startActivityForResult(intent, CARRINHO_REQUEST);
+                break;
+        }
         return true;
     }
 
@@ -78,9 +81,13 @@ public class CardapioActivity extends AppCompatActivity implements ChildEventLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CardapioActivity.DETALHES_REQUEST){
             switch (resultCode){
-                case CardapioActivity.ITEM_CRIADO_RESULT:
+
+                case CardapioActivity.ITEM_PEDIDO_CRIADO_RESULT:
+                    //Pedido realizado
                     break;
-                case CardapioActivity.ITEM_CANCELADO_RESULT:
+
+                case CardapioActivity.ITEM_PEDIDO_CANCELADO_RESULT:
+
                     break;
             }
         }
@@ -88,18 +95,20 @@ public class CardapioActivity extends AppCompatActivity implements ChildEventLis
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        PratoModel pratoModel = dataSnapshot.getValue(PratoModel.class);
-        cardapio.add(pratoModel);
+        ItemModel itemModel = dataSnapshot.getValue(ItemModel.class);
+        itemModel.setKey(dataSnapshot.getKey());
+        cardapio.add(itemModel);
         setList();
     }
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        PratoModel pratoModel = dataSnapshot.getValue(PratoModel.class);
+        ItemModel itemModel = dataSnapshot.getValue(ItemModel.class);
+        itemModel.setKey(dataSnapshot.getKey());
         for (int i = 0; i < cardapio.size(); i++){
-            assert pratoModel != null;
-            if (cardapio.get(i).getCodigo().equals(pratoModel.getCodigo())){
-                cardapio.set(i, pratoModel);
+            assert itemModel != null;
+            if (cardapio.get(i).getKey().equals(itemModel.getKey())){
+                cardapio.set(i, itemModel);
                 break;
             }
         }
@@ -108,10 +117,11 @@ public class CardapioActivity extends AppCompatActivity implements ChildEventLis
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-        PratoModel pratoModel = dataSnapshot.getValue(PratoModel.class);
+        ItemModel itemModel = dataSnapshot.getValue(ItemModel.class);
+        itemModel.setKey(dataSnapshot.getKey());
         for (int i = 0; i < cardapio.size(); i++){
-            assert pratoModel != null;
-            if (cardapio.get(i).getCodigo().equals(pratoModel.getCodigo())){
+            assert itemModel != null;
+            if (cardapio.get(i).getKey().equals(itemModel.getKey())){
                 cardapio.remove(i);
                 break;
             }
@@ -121,10 +131,11 @@ public class CardapioActivity extends AppCompatActivity implements ChildEventLis
 
     @Override
     public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-        PratoModel pratoModel = dataSnapshot.getValue(PratoModel.class);
+        ItemModel itemModel = dataSnapshot.getValue(ItemModel.class);
+        itemModel.setKey(dataSnapshot.getKey());
         for (int i = 0; i < cardapio.size(); i++){
-            assert pratoModel != null;
-            if (cardapio.get(i).getCodigo().equals(pratoModel.getCodigo())){
+            assert itemModel != null;
+            if (cardapio.get(i).getKey().equals(itemModel.getKey())){
                 cardapio.remove(i);
                 break;
             }

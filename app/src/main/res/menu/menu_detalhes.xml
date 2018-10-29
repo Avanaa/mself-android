@@ -6,7 +6,7 @@
     tools:context=".DetalhesActivity">
 
     <item
-        android:id="@+id/menu_item_cart"
+        android:id="@+id/menu_item_save"
         android:icon="@drawable/ic_save"
         app:showAsAction="always"
         android:title="@string/carrinho"/>

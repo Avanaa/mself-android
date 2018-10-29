@@ -2,15 +2,28 @@ package br.com.avana.mself.model;
 
 import java.io.Serializable;
 
-public class PratoModel implements Serializable {
+public class ItemModel implements Serializable {
 
+
+    public enum Disponivel{ SIM, NAO }
+
+    private String key;
     private String codigo;
     private String titulo;
     private String descricao;
-    private String valor;
-    private String desconto;
-    private String preco;
+    private double valor;
+    private double desconto;
+    private double preco;
     private String image;
+    private Disponivel disponivel;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getCodigo() {
         return codigo;
@@ -36,27 +49,25 @@ public class PratoModel implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
-    public String getDesconto() {
+    public double getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(String desconto) {
+    public void setDesconto(double desconto) {
         this.desconto = desconto;
     }
 
-    public String getPreco() {
-        return preco;
-    }
+    public double getPreco() { return preco; }
 
-    public void setPreco(String preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
@@ -66,5 +77,15 @@ public class PratoModel implements Serializable {
 
     public void setImage(String imagem) {
         this.image = imagem;
+    }
+
+    public String getDisponivel() { return disponivel.name(); }
+
+    public void setDisponivel(String disponivel) { this.disponivel = Disponivel.valueOf(disponivel); }
+
+    @Override
+    public boolean equals(Object object) {
+        ItemModel o = (ItemModel) object;
+        return this.getCodigo().equals(o.getCodigo());
     }
 }

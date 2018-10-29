@@ -31,10 +31,14 @@
         <item>10</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="salvar">Salvar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="itemPedido">itemPedido</string>
+    <string name="itemCardapio">itemCardapio</string>
+    <string name="title_activity_carrinho">Pedidos não enviados</string>
+    <string name="carrinho_concluir_pedido">Concluir pedido %3.2f</string>
+    <string name="carrinho_preco_item">Preço: R$ %3.2f</string>
+    <string name="carrinho_quantidade">Quantidade: %d</string>
 
 
 </resources>

@@ -12,13 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 import br.com.avana.mself.async.LoadImgByURLTask;
+import br.com.avana.mself.dao.PedidoDao;
 import br.com.avana.mself.dialog.ObservacoesDialog;
 import br.com.avana.mself.dialog.QuantidadeDialog;
+import br.com.avana.mself.helper.DetalhesHelper;
 import br.com.avana.mself.model.ItemPedidoModel;
 import br.com.avana.mself.model.ItemModel;
 import br.com.avana.mself.model.PedidoModel;
@@ -27,9 +32,8 @@ public class DetalhesActivity extends AppCompatActivity implements
         QuantidadeDialog.QuantidadeDialogListener,
         ObservacoesDialog.ObservacoesDialogListener {
 
-    private DatabaseReference mRef;
-    private ItemModel itemModel;
     private ItemPedidoModel itemPedidoModel;
+    private DetalhesHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +43,16 @@ public class DetalhesActivity extends AppCompatActivity implements
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mRef = FirebaseDatabase.getInstance()
-                .getReference("pedidos")
-                .child("TESTE");
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        ItemModel itemModel = (ItemModel) getIntent().getSerializableExtra(getString(R.string.itemCardapio));
+        getSupportActionBar().setTitle(itemModel.getTitulo());
 
         itemPedidoModel = new ItemPedidoModel();
-        itemModel = (ItemModel) getIntent().getSerializableExtra(getString(R.string.itemCardapio));
         itemPedidoModel.setItem(itemModel);
-        setItemOnScreen();
-        setPrecoOnScreen();
+
+        helper = new DetalhesHelper(this);
+        helper.setItem(itemPedidoModel);
 
         Button btnQuantidade = findViewById(R.id.detalhes_btn_quantidade);
         btnQuantidade.setOnClickListener(new View.OnClickListener() {
@@ -77,16 +82,19 @@ public class DetalhesActivity extends AppCompatActivity implements
 
         switch (item.getItemId()){
             case R.id.menu_item_save:
-
                 pedidoRealizado();
                 break;
+
+            default:
+                finish();
         }
         return true;
     }
 
     private void pedidoRealizado() {
-        itemPedidoModel.setStatus(PedidoModel.Status.CRIADO.name());
-        mRef.push().setValue(itemPedidoModel);
+        PedidoDao dao = new PedidoDao();
+        dao.push(itemPedidoModel);
+        Toast.makeText(this, R.string.detalhes_item_salvo, Toast.LENGTH_LONG).show();
         finish();
     }
 
@@ -102,41 +110,21 @@ public class DetalhesActivity extends AppCompatActivity implements
         newFragment.show(fragmentManager, "quantidade");
     }
 
-    private void setItemOnScreen() {
-
-        ImageView imgView = findViewById(R.id.detalhes_imagem);
-        new LoadImgByURLTask(imgView).execute(itemModel.getImage());
-
-        TextView txtViewdescricao = findViewById(R.id.detalhes_descricao);
-        txtViewdescricao.setText(itemModel.getDescricao());
-
-        TextView txtViewPreco = findViewById(R.id.detalhes_preco);
-        txtViewPreco.setText(String.format(getString(R.string.moeda), String.valueOf(itemPedidoModel.getItem().getPreco())));
-    }
-
-    private void setPrecoOnScreen(){
-
-        Button btnQuantidade = findViewById(R.id.detalhes_btn_quantidade);
-        btnQuantidade.setText(String.valueOf(itemPedidoModel.getQuantidade()));
-
-        TextView precoTotal = findViewById(R.id.detalhes_total_preco);
-        precoTotal.setText(String.valueOf(itemPedidoModel.getPreco()));
-    }
-
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         EditText observacoes = dialog.getDialog().findViewById(R.id.observacoes_edit_txt);
         String observacoesContent = observacoes.getText().toString();
         itemPedidoModel.setObservacoes(observacoesContent);
+        Toast.makeText(this, R.string.detalhes_observacoes_ok, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) { }
 
     @Override
-    public void onItemDialogClick(String Quantidadeitem) {
-        itemPedidoModel.setQuantidade(Integer.parseInt(Quantidadeitem));
+    public void onItemDialogClick(String quantidadeItem) {
+        itemPedidoModel.setQuantidade(Integer.parseInt(quantidadeItem));
         itemPedidoModel.setPreco(itemPedidoModel.getItem().getPreco() * itemPedidoModel.getQuantidade());
-        setPrecoOnScreen();
+        helper.setItem(itemPedidoModel);
     }
 }

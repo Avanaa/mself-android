@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.avana.mself.CardapioActivity;
 import br.com.avana.mself.DetalhesActivity;
 import br.com.avana.mself.R;
 import br.com.avana.mself.async.LoadImgByURLTask;
@@ -45,7 +44,7 @@ public class ListaCardapioAdapter extends RecyclerView.Adapter<ListaCardapioAdap
             public void onClick(View v) {
                 Intent intent = new Intent(activity, DetalhesActivity.class);
                 intent.putExtra(activity.getString(R.string.itemCardapio), cardapio.get(viewItemHolder.getAdapterPosition()));
-                activity.startActivityForResult(intent, CardapioActivity.DETALHES_REQUEST);
+                activity.startActivity(intent);
             }
         });
         return viewItemHolder;

@@ -1,0 +1,85 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="br.com.avana.mself.MainActivity">
+
+    <item
+        android:title="Pedidos"
+        android:id="@+id/nav_cart"
+        android:icon="@drawable/ic_shopping_cart_ic"
+        />
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:title="Comidas">
+            <menu>
+                <item
+                    android:id="@+id/nav_executivos"
+                    android:icon="@drawable/ic_food"
+                    android:title="Pratos executivos" />
+
+                <item
+                    android:id="@+id/nav_peixes"
+                    android:icon="@drawable/ic_food"
+                    android:title="Peixes e frutos do mar" />
+
+                <item
+                    android:id="@+id/nav_carnes"
+                    android:icon="@drawable/ic_food"
+                    android:title="Carnes" />
+
+                <item
+                    android:id="@+id/nav_saladas"
+                    android:icon="@drawable/ic_food"
+                    android:title="Saladas" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Lanches e sobremesas">
+            <menu>
+                <item
+                    android:id="@+id/nav_sanduiches"
+                    android:icon="@drawable/ic_fast_food"
+                    android:title="Sanduiches" />
+
+                <item
+                    android:id="@+id/nav_sobremesas"
+                    android:icon="@drawable/ic_fast_food"
+                    android:title="Sobremesas" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Bebidas">
+            <menu>
+                <item
+                    android:id="@+id/nav_refrigerantes"
+                    android:icon="@drawable/ic_wine"
+                    android:title="Refrigerantes" />
+
+                <item
+                    android:id="@+id/nav_cervejas"
+                    android:icon="@drawable/ic_wine"
+                    android:title="Cervejas" />
+
+                <item
+                    android:id="@+id/nav_vinhos"
+                    android:icon="@drawable/ic_wine"
+                    android:title="Vinhos" />
+
+                <item
+                    android:id="@+id/nav_doses"
+                    android:icon="@drawable/ic_wine"
+                    android:title="Doses" />
+
+            </menu>
+        </item>
+    </group>
+</menu>

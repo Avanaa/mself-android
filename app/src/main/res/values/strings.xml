@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">mself</string>
+
+    <!-- Início - Não traduzir  -->
+    <string name="item_categoria">CATEGORIA</string>
+    <string name="item_format">ITEM/%s</string>
+    <string name="pedidos">PEDIDOS/</string>
+    <!-- Fim - Não traduzir  -->
+
+    <string name="app_name">Mself</string>
     <string name="cardapio">Cardápio</string>
     <string name="moeda">R$ %s</string>
     <string name="descricao">Descrição</string>
@@ -8,7 +15,7 @@
     <string name="pedir">Pedir</string>
     <string name="title_activity_cardapio">Cardápio</string>
     <string name="carrinho">Carrinho</string>
-    <string name="erro_banco_aviso">Erro no banco de dados. Tente se conectar em outro momento</string>
+    <string name="erro_banco_aviso">Erro na conexão. Tente novamente depois</string>
     <string name="zero">0</string>
     <string name="historico">Historico</string>
     <string name="configuracoes">Configurações</string>
@@ -40,5 +47,18 @@
     <string name="carrinho_preco_item">Preço: R$ %3.2f</string>
     <string name="carrinho_quantidade">Quantidade: %d</string>
 
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_main">Mself</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="detalhes_item_salvo">Item incluído no seu pedido!</string>
+    <string name="detalhes_observacoes_ok">Observações incluídas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

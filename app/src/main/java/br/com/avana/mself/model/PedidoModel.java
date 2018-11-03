@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PedidoModel {
 
-    public enum Status { CRIADO, ENVIADO, EM_PREPARACAO, PRONTO, ENTREGUE, CANCELADO }
+    public enum Status { CRIADO, ENVIADO, EM_PREPARACAO, PRONTO, ENTREGUE, CONFIRMADO_ENTREGUE, CANCELADO }
 
     private String mesa;
     private List<ItemPedidoModel> itens;

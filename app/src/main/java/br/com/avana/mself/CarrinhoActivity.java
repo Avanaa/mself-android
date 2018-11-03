@@ -5,25 +5,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import br.com.avana.mself.adapter.ListaItensCarrinhoAdapter;
+import br.com.avana.mself.dao.PedidoDao;
 import br.com.avana.mself.model.ItemPedidoModel;
-import br.com.avana.mself.model.PedidoModel;
 
 public class CarrinhoActivity extends AppCompatActivity implements ChildEventListener {
 
-    DatabaseReference mRef;
+    DatabaseReference dao;
     List<ItemPedidoModel> itensCarrinho = new ArrayList<>();
 
     @Override
@@ -34,14 +35,16 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mRef = FirebaseDatabase.getInstance()
-                .getReference("pedidos/TESTE")
-                .orderByChild("status")
-                .equalTo(PedidoModel.Status.CRIADO.name())
-                .getRef();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        mRef.addChildEventListener(this);
+        dao = new PedidoDao().getPedidoRef();
+        dao.addChildEventListener(this);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
     }
 
     private void setList(){
@@ -65,7 +68,8 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
     }
 
     public void removeItemCarrinho(ItemPedidoModel item){
-        mRef.child(item.getKey()).removeValue();
+        dao.child(item.getKey()).removeValue();
+        Toast.makeText(this, "Item removido do pedido", Toast.LENGTH_LONG).show();
         setList();
     }
 
@@ -78,7 +82,12 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
     }
 
     @Override
-    public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        ItemPedidoModel item = dataSnapshot.getValue(ItemPedidoModel.class);
+        item.setKey(dataSnapshot.getKey());
+        itensCarrinho.set(itensCarrinho.indexOf(item), item);
+        setList();
+    }
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {

@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -14,8 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_shopping_cart_ic" />
-                            <entry key="sourceFile" value="C:\Users\avana\Desktop\shopping_cart_ic.svg" />
+                            <entry key="outputName" value="ic_wine" />
+                            <entry key="sourceFile" value="C:\Users\avana\Documents\mself icons\ic_wine.svg" />
                           </map>
                         </option>
                       </PersistentState>

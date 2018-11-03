@@ -4,8 +4,19 @@ import java.io.Serializable;
 
 public class ItemModel implements Serializable {
 
-
     public enum Disponivel{ SIM, NAO }
+    public enum Categoria {
+        EXECUTIVOS,
+        PEIXES,
+        CARNES,
+        SALADAS,
+        SANDUICHES,
+        SOBREMESAS,
+        REFRIGERANTES,
+        CERVEJAS,
+        VINHOS,
+        DOSES
+    }
 
     private String key;
     private String codigo;
@@ -16,6 +27,7 @@ public class ItemModel implements Serializable {
     private double preco;
     private String image;
     private Disponivel disponivel;
+    private Categoria categoria;
 
     public String getKey() {
         return key;
@@ -82,6 +94,19 @@ public class ItemModel implements Serializable {
     public String getDisponivel() { return disponivel.name(); }
 
     public void setDisponivel(String disponivel) { this.disponivel = Disponivel.valueOf(disponivel); }
+
+    public String getCategoria() {
+        if (categoria == null){
+            return "";
+        }
+        return categoria.name();
+    }
+
+    public void setCategoria(String categoria) {
+        if (categoria != null && !categoria.equals("")){
+            this.categoria = Categoria.valueOf(categoria);
+        }
+    }
 
     @Override
     public boolean equals(Object object) {

@@ -10,21 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Base">
         <activity
-            android:name=".CardapioActivity"
-            android:label="@string/title_activity_cardapio"
-            android:theme="@style/Theme.App.Base">
+            android:name=".DetalhesActivity"
+            android:theme="@style/Theme.App.Base" />
+        <activity
+            android:name=".CarrinhoActivity"
+            android:label="@string/title_activity_carrinho" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DetalhesActivity"
-            android:theme="@style/Theme.App.Base" />
-        <activity
-            android:name=".CarrinhoActivity"
-            android:label="@string/title_activity_carrinho"></activity>
     </application>
 
 </manifest>

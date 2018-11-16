@@ -12,11 +12,10 @@ public class PedidoDao {
 
     public PedidoDao(){
         mPedidoRef = FirebaseDatabase.getInstance()
-                        .getReference(String.format("PEDIDO/%s", "TESTE"))
+                        .getReference("PEDIDO")
                         .orderByChild("status")
                         .equalTo(PedidoModel.Status.CRIADO.name())
                         .getRef();
-        ;
     }
 
     public DatabaseReference getPedidoRef() {

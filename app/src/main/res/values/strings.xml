@@ -60,5 +60,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="leitura_info">Escaneie o código impresso no adesivo em um dos cantos da mesa</string>
+    <string name="aviso_erro">Houve um erro não esperado. Entre em contato com nossa central de atendimento</string>
 
 </resources>

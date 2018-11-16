@@ -1,11 +1,13 @@
 package br.com.avana.mself;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,6 +15,8 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,17 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
 
         dao = new PedidoDao().getPedidoRef();
         dao.addChildEventListener(this);
+
+        Button button = findViewById(R.id.carrinho_btn_enviar);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new IntentIntegrator(CarrinhoActivity.this)
+                        .setPrompt(getString(R.string.leitura_info))
+                        .initiateScan();
+            }
+        });
     }
 
     @Override
@@ -47,15 +62,30 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Toast.makeText(this, "Escaneamento cancelado", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Código: " + result.getContents(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     private void setList(){
 
         RecyclerView recyclerView = findViewById(R.id.carrinho_lista);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setAdapter(new ListaItensCarrinhoAdapter(itensCarrinho, this));
         atualizaTotal();
+
     }
 
     private void atualizaTotal() {
@@ -98,8 +128,15 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
     }
 
     @Override
-    public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        ItemPedidoModel item = dataSnapshot.getValue(ItemPedidoModel.class);
+        item.setKey(dataSnapshot.getKey());
+        itensCarrinho.remove(item);
+        setList();
+    }
 
     @Override
-    public void onCancelled(DatabaseError databaseError) { }
+    public void onCancelled(DatabaseError databaseError) {
+        Toast.makeText(this, R.string.aviso_erro, Toast.LENGTH_LONG).show();
+    }
 }

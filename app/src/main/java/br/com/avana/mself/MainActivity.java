@@ -16,6 +16,8 @@ import android.view.MenuItem;
 
 import br.com.avana.mself.fragment.CardapioFragment;
 import br.com.avana.mself.model.ItemModel;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
+
         setContentView(R.layout.activity_main);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -80,6 +84,9 @@ public class MainActivity extends AppCompatActivity
                     break;
 
                 case R.id.nav_sanduiches:
+                    break;
+
+                case R.id.nav_petiscos:
                     break;
 
                 case R.id.nav_sobremesas:

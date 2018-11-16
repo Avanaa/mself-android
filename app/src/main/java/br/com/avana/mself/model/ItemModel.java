@@ -11,6 +11,7 @@ public class ItemModel implements Serializable {
         CARNES,
         SALADAS,
         SANDUICHES,
+        PETISCOS,
         SOBREMESAS,
         REFRIGERANTES,
         CERVEJAS,

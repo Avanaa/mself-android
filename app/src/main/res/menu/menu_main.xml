@@ -40,12 +40,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:title="Lanches e sobremesas">
+            android:title="Lanches, petiscos e sobremesas">
             <menu>
                 <item
                     android:id="@+id/nav_sanduiches"
                     android:icon="@drawable/ic_fast_food"
                     android:title="Sanduiches" />
+
+                <item
+                    android:id="@+id/nav_petiscos"
+                    android:icon="@drawable/ic_fast_food"
+                    android:title="Petiscos" />
 
                 <item
                     android:id="@+id/nav_sobremesas"

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -70,7 +71,12 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
             if(result.getContents() == null) {
                 Toast.makeText(this, "Escaneamento cancelado", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Código: " + result.getContents(), Toast.LENGTH_LONG).show();
+                TextView textView = findViewById(R.id.carrinho_text_view_mesa);
+                textView.setText(String.format("Código da mesa: %s",result.getContents()));
+                for (ItemPedidoModel item : itensCarrinho){
+                    item.setMesa(result.getContents());
+                    dao.child(item.getKey()).setValue(item);
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

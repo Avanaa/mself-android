@@ -4,7 +4,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import br.com.avana.mself.model.ItemPedidoModel;
-import br.com.avana.mself.model.PedidoModel;
 
 public class PedidoDao {
 
@@ -14,7 +13,7 @@ public class PedidoDao {
         mPedidoRef = FirebaseDatabase.getInstance()
                         .getReference("PEDIDO")
                         .orderByChild("status")
-                        .equalTo(PedidoModel.Status.CRIADO.name())
+                        .equalTo(ItemPedidoModel.Status.CRIADO.name())
                         .getRef();
     }
 
@@ -23,7 +22,7 @@ public class PedidoDao {
     }
 
     public void push(ItemPedidoModel itemPedidoModel){
-        itemPedidoModel.setStatus(PedidoModel.Status.CRIADO.name());
+        itemPedidoModel.setStatus(ItemPedidoModel.Status.CRIADO.name());
         mPedidoRef.push().setValue(itemPedidoModel);
     }
 }

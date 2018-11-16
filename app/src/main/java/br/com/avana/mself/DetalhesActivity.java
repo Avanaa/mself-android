@@ -10,23 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-import br.com.avana.mself.async.LoadImgByURLTask;
 import br.com.avana.mself.dao.PedidoDao;
 import br.com.avana.mself.dialog.ObservacoesDialog;
 import br.com.avana.mself.dialog.QuantidadeDialog;
 import br.com.avana.mself.helper.DetalhesHelper;
 import br.com.avana.mself.model.ItemPedidoModel;
 import br.com.avana.mself.model.ItemModel;
-import br.com.avana.mself.model.PedidoModel;
 
 public class DetalhesActivity extends AppCompatActivity implements
         QuantidadeDialog.QuantidadeDialogListener,

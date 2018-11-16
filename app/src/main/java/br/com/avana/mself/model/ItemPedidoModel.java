@@ -4,12 +4,15 @@ import java.io.Serializable;
 
 public class ItemPedidoModel implements Serializable {
 
+    public enum Status { CRIADO, ENVIADO, EM_PREPARACAO, PRONTO, ENTREGUE, CONFIRMADO_ENTREGUE, CANCELADO }
+
     private String key;
+    private String mesa;
     private ItemModel item;
     private int quantidade;
     private double preco;
     private String observacoes;
-    private PedidoModel.Status status;
+    private ItemPedidoModel.Status status;
 
     public String getKey() {
         return key;
@@ -18,6 +21,10 @@ public class ItemPedidoModel implements Serializable {
     public void setKey(String key) {
         this.key = key;
     }
+
+    public String getMesa() { return mesa; }
+
+    public void setMesa(String mesa) { this.mesa = mesa; }
 
     public ItemModel getItem() {
         return item;
@@ -53,11 +60,12 @@ public class ItemPedidoModel implements Serializable {
 
     public String getStatus() { return status.name(); }
 
-    public void setStatus(String status) { this.status = PedidoModel.Status.valueOf(status); }
+    public void setStatus(String status) { this.status = ItemPedidoModel.Status.valueOf(status); }
 
     @Override
     public boolean equals(Object obj) {
         ItemPedidoModel o = (ItemPedidoModel) obj;
         return this.getKey().equals(o.getKey());
     }
+
 }

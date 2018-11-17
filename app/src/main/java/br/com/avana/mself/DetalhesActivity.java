@@ -38,15 +38,6 @@ public class DetalhesActivity extends AppCompatActivity implements
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        ItemModel itemModel = (ItemModel) getIntent().getSerializableExtra(getString(R.string.itemCardapio));
-        getSupportActionBar().setTitle(itemModel.getTitulo());
-
-        itemPedidoModel = new ItemPedidoModel();
-        itemPedidoModel.setItem(itemModel);
-
-        helper = new DetalhesHelper(this);
-        helper.setItem(itemPedidoModel);
-
         Button btnQuantidade = findViewById(R.id.detalhes_btn_quantidade);
         btnQuantidade.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +53,14 @@ public class DetalhesActivity extends AppCompatActivity implements
                 showObservacoesDialog();
             }
         });
+
+        String itemKey = getIntent().getStringExtra("itemKey");
+        ItemModel itemModel = (ItemModel) getIntent().getSerializableExtra(getString(R.string.itemCardapio));
+        if (itemModel != null){
+            helper = new DetalhesHelper(this);
+            itemPedidoModel = helper.setItem(itemModel, itemKey);
+            getSupportActionBar().setTitle(itemPedidoModel.getTitulo());
+        }
     }
 
     @Override
@@ -85,9 +84,7 @@ public class DetalhesActivity extends AppCompatActivity implements
     }
 
     private void pedidoRealizado() {
-        PedidoDao dao = new PedidoDao();
-        dao.push(itemPedidoModel);
-        Toast.makeText(this, R.string.detalhes_item_salvo, Toast.LENGTH_LONG).show();
+        new PedidoDao().push(itemPedidoModel);
         finish();
     }
 
@@ -95,7 +92,7 @@ public class DetalhesActivity extends AppCompatActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         ObservacoesDialog newFragment = new ObservacoesDialog();
         newFragment.show(fragmentManager, "observacoes");
-    }
+}
 
     private void showQuantidadeDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -117,7 +114,6 @@ public class DetalhesActivity extends AppCompatActivity implements
     @Override
     public void onItemDialogClick(String quantidadeItem) {
         itemPedidoModel.setQuantidade(Integer.parseInt(quantidadeItem));
-        itemPedidoModel.setPreco(itemPedidoModel.getItem().getPreco() * itemPedidoModel.getQuantidade());
-        helper.setItem(itemPedidoModel);
+        helper.setPreco(itemPedidoModel);
     }
 }

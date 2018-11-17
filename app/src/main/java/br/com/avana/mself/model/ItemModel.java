@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class ItemModel implements Serializable {
 
     public enum Disponivel{ SIM, NAO }
+
     public enum Categoria {
         EXECUTIVOS,
         PEIXES,
@@ -20,7 +21,6 @@ public class ItemModel implements Serializable {
     }
 
     private String key;
-    private String codigo;
     private String titulo;
     private String descricao;
     private double valor;
@@ -36,14 +36,6 @@ public class ItemModel implements Serializable {
 
     public void setKey(String key) {
         this.key = key;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getTitulo() {
@@ -92,16 +84,15 @@ public class ItemModel implements Serializable {
         this.image = imagem;
     }
 
-    public String getDisponivel() { return disponivel.name(); }
+    public String getDisponivel() { return (disponivel != null) ? disponivel.name() : ""; }
 
-    public void setDisponivel(String disponivel) { this.disponivel = Disponivel.valueOf(disponivel); }
-
-    public String getCategoria() {
-        if (categoria == null){
-            return "";
+    public void setDisponivel(String disponivel) {
+        if (disponivel != null && !disponivel.equals("")){
+            this.disponivel = Disponivel.valueOf(disponivel);
         }
-        return categoria.name();
     }
+
+    public String getCategoria() { return (categoria != null) ? categoria.name() : ""; }
 
     public void setCategoria(String categoria) {
         if (categoria != null && !categoria.equals("")){
@@ -112,6 +103,6 @@ public class ItemModel implements Serializable {
     @Override
     public boolean equals(Object object) {
         ItemModel o = (ItemModel) object;
-        return this.getCodigo().equals(o.getCodigo());
+        return (getKey() != null) && this.getKey().equals(o.getKey());
     }
 }

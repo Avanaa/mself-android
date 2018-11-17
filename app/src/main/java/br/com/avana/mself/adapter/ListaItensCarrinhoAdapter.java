@@ -2,6 +2,7 @@ package br.com.avana.mself.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,11 +16,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.avana.mself.CarrinhoActivity;
+import br.com.avana.mself.DetalhesActivity;
 import br.com.avana.mself.R;
 import br.com.avana.mself.async.LoadImgByURLTask;
 import br.com.avana.mself.model.ItemPedidoModel;
 
-public class ListaItensCarrinhoAdapter extends RecyclerView.Adapter<ListaItensCarrinhoAdapter.ViewItemHolder> {
+public class ListaItensCarrinhoAdapter extends RecyclerView.Adapter<ListaItensCarrinhoAdapter.ViewItemHolder>{
 
     private List<ItemPedidoModel> itensCarrinho;
     private CarrinhoActivity activity;
@@ -36,14 +38,28 @@ public class ListaItensCarrinhoAdapter extends RecyclerView.Adapter<ListaItensCa
         ItemPedidoModel itemPedido = itensCarrinho.get(position);
 
         final ViewItemHolder viewItemHolder = new ViewItemHolder(
-                LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_carrinho, parent, false),
-                itemPedido);
+                    LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_carrinho, parent, false),
+                    itemPedido);
 
         viewItemHolder.getButtonRemover().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.removeItemCarrinho(itensCarrinho.get(viewItemHolder.getAdapterPosition()));
+            }
+        });
+
+        viewItemHolder.getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(activity, DetalhesActivity.class);
+
+                intent.putExtra(activity.getString(R.string.itemCardapio),
+                        itensCarrinho.get(viewItemHolder.getAdapterPosition()));
+                intent.putExtra("itemKey", itensCarrinho.get(viewItemHolder.getAdapterPosition()).getItemKey());
+
+                activity.startActivity(intent);
             }
         });
 
@@ -74,11 +90,13 @@ public class ListaItensCarrinhoAdapter extends RecyclerView.Adapter<ListaItensCa
             setValues();
         }
 
+        private View getView(){ return itemCarrinho; }
+
         @SuppressLint("DefaultLocale")
         private void setValues(){
 
-            new LoadImgByURLTask(getImageView()).execute(itemPedido.getItem().getImage());
-            getTextViewTitulo().setText(itemPedido.getItem().getTitulo());
+            new LoadImgByURLTask(getImageView()).execute(itemPedido.getImage());
+            getTextViewTitulo().setText(itemPedido.getTitulo());
             getTextViewQuantidade().setText(String.format("Quantidade %d", itemPedido.getQuantidade()));
             getTextViewTotal().setText(String.format("Total: R$ %3.2f", itemPedido.getPreco()));
         }

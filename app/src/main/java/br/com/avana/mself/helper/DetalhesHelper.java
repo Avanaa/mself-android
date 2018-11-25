@@ -1,6 +1,7 @@
 package br.com.avana.mself.helper;
 
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,18 +19,15 @@ public class DetalhesHelper {
         this.activity = activity;
     }
 
-    public ItemPedidoModel setItem(ItemModel itemModel, String itemKey){
+    public ItemPedidoModel setItem(ItemModel itemModel){
 
-        ItemPedidoModel itemPedido = createItemPedidoByItemModel(itemModel, itemKey);
+        ItemPedidoModel itemPedido = createItemPedidoByItemModel(itemModel);
 
         ImageView imgView = activity.findViewById(R.id.detalhes_imagem);
         new LoadImgByURLTask(imgView).execute(itemPedido.getImage());
 
         TextView txtViewdescricao = activity.findViewById(R.id.detalhes_descricao);
         txtViewdescricao.setText(itemPedido.getDescricao());
-
-        Button btnQuantidade = activity.findViewById(R.id.detalhes_btn_quantidade);
-        btnQuantidade.setText(String.valueOf(itemPedido.getQuantidade()));
 
         setPreco(itemPedido);
 
@@ -45,19 +43,14 @@ public class DetalhesHelper {
         precoTotal.setText(String.valueOf(itemPedido.getPrecoPedido()));
     }
 
-    private ItemPedidoModel createItemPedidoByItemModel(ItemModel itemModel, String itemKey) {
+    private ItemPedidoModel createItemPedidoByItemModel(ItemModel itemModel) {
         ItemPedidoModel itemPedidoModel = new ItemPedidoModel();
         itemPedidoModel.setTitulo(itemModel.getTitulo());
         itemPedidoModel.setDescricao(itemModel.getDescricao());
         itemPedidoModel.setPreco(itemModel.getPreco());
         itemPedidoModel.setImage(itemModel.getImage());
         itemPedidoModel.setCategoria(itemModel.getCategoria());
-
-        if (itemKey != null){
-            itemPedidoModel.setItemKey(itemKey);
-        } else {
-            itemPedidoModel.setItemKey(itemModel.getKey());
-        }
+        itemPedidoModel.setItemKey(itemModel.getKey());
         return itemPedidoModel;
     }
 }

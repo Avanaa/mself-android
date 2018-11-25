@@ -13,6 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import br.com.avana.mself.CarrinhoActivity;
@@ -42,26 +46,37 @@ public class ListaItensCarrinhoAdapter extends RecyclerView.Adapter<ListaItensCa
                     .inflate(R.layout.item_carrinho, parent, false),
                     itemPedido);
 
-        viewItemHolder.getButtonRemover().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.removeItemCarrinho(itensCarrinho.get(viewItemHolder.getAdapterPosition()));
-            }
-        });
+        if (itemPedido.getStatus().equals(ItemPedidoModel.Status.CRIADO.name())){
 
-        viewItemHolder.getView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            viewItemHolder.getButtonRemover().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.removeItemCarrinho(itensCarrinho.get(viewItemHolder.getAdapterPosition()));
+                }
+            });
 
-                Intent intent = new Intent(activity, DetalhesActivity.class);
+            viewItemHolder.getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, DetalhesActivity.class);
+                    intent.putExtra(activity.getString(R.string.itemCardapio),
+                            itensCarrinho.get(viewItemHolder.getAdapterPosition()));
+                    intent.putExtra("pedidoKey", itensCarrinho.get(viewItemHolder.getAdapterPosition()).getKey());
+                    activity.startActivity(intent);
+                }
+            });
+        } else {
 
-                intent.putExtra(activity.getString(R.string.itemCardapio),
-                        itensCarrinho.get(viewItemHolder.getAdapterPosition()));
-                intent.putExtra("itemKey", itensCarrinho.get(viewItemHolder.getAdapterPosition()).getItemKey());
+            viewItemHolder.getButtonRemover().setVisibility(View.GONE);
 
-                activity.startActivity(intent);
-            }
-        });
+            viewItemHolder.getView().setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    activity.removeItemCarrinho(itensCarrinho.get(viewItemHolder.getAdapterPosition()));
+                    return true;
+                }
+            });
+        }
 
         return viewItemHolder;
     }
@@ -99,6 +114,7 @@ public class ListaItensCarrinhoAdapter extends RecyclerView.Adapter<ListaItensCa
             getTextViewTitulo().setText(itemPedido.getTitulo());
             getTextViewQuantidade().setText(String.format("Quantidade %d", itemPedido.getQuantidade()));
             getTextViewTotal().setText(String.format("Total: R$ %3.2f", itemPedido.getPreco()));
+            getTextViewStatus().setText(itemPedido.getStatus());
         }
 
         private void setValuesByItem(ItemPedidoModel item){
@@ -119,6 +135,8 @@ public class ListaItensCarrinhoAdapter extends RecyclerView.Adapter<ListaItensCa
         private ImageButton getButtonRemover(){
             return (ImageButton) itemCarrinho.findViewById(R.id.item_carrinho_remove);
         }
+
+        private TextView getTextViewStatus(){ return (TextView) itemCarrinho.findViewById(R.id.item_carrinho_status); }
 
     }
 }

@@ -62,5 +62,32 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="leitura_info">Escaneie o código impresso no adesivo em um dos cantos da mesa</string>
     <string name="aviso_erro">Houve um erro não esperado. Entre em contato com nossa central de atendimento</string>
+    <string name="carrinho_escaneie_codigo_mesa">Escaneie o código da mesa antes de concluir o pedido</string>
+    <string name="carrinho_escaneado_codigo_mesa">Pedido para a mesa %s</string>
+    <string name="detalhes_quantidade">Quantidade</string>
+    <string name="detalhes_observacoes">Observações</string>
+    <string name="detalhes_total_pedido">Total do pedido R$</string>
+    <string name="detalhes_total_pedido_valor">0.0</string>
+    <string name="menu_carrinho">Carrinho</string>
+    <string name="menu_acompanhar_pedidos">Acompanhar Pedidos</string>
+    <string name="menu_comidas">Comidas</string>
+    <string name="menu_pratos_executivos">Pratos executivos</string>
+    <string name="menu_peixes_e_frutos_do_mar">Peixes e frutos do mar</string>
+    <string name="menu_carnes">Carnes</string>
+    <string name="menu_saladas">Saladas</string>
+    <string name="menu_lanches_petiscos_e_sobremesas">Lanches, petiscos e sobremesas</string>
+    <string name="menu_sanduiches">Sanduiches</string>
+    <string name="menu_petiscos">Petiscos</string>
+    <string name="menu_sobremesas">Sobremesas</string>
+    <string name="menu_bebidas">Bebidas</string>
+    <string name="menu_refrigerantes">Refrigerantes</string>
+    <string name="menu_cervejas">Cervejas</string>
+    <string name="menu_vinhos">Vinhos</string>
+    <string name="menu_doses">Doses</string>
+    <string name="carrinho_confirmar_pedido_botao">Confirmar pedido para a mesa %s</string>
+    <string name="carrinho_escaneamento_cancelado">Escaneamento cancelado</string>
+    <string name="carrinho_codigo_mesa">Código da mesa: %s</string>
+    <string name="carrinho_item_removido">Item removido do pedido</string>
+    <string name="carrinho_acompanhe_pedido">Últimos pedidos enviados</string>
 
 </resources>

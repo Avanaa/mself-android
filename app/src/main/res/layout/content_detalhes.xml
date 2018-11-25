@@ -96,7 +96,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Quantidade"
+            android:text="@string/detalhes_quantidade"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/detalhes_btn_quantidade"
             app:layout_constraintEnd_toStartOf="@+id/detalhes_btn_quantidade"
@@ -104,7 +104,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/detalhes_btn_quantidade" />
 
-        <Button
+        <ImageButton
             android:id="@+id/detalhes_btn_quantidade"
             android:layout_width="wrap_content"
             android:layout_height="47dp"
@@ -112,10 +112,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/white"
-            android:text="1"
-            android:textColor="@android:color/holo_orange_dark"
-            android:textStyle="bold"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@android:color/holo_orange_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -131,15 +129,14 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Observações"
-            android:textSize="18sp"
+            android:text="@string/detalhes_observacoes"
             app:layout_constraintBottom_toBottomOf="@+id/detalhes_btn_observacoes"
             app:layout_constraintEnd_toStartOf="@+id/detalhes_btn_observacoes"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/detalhes_btn_observacoes" />
 
-        <Button
+        <ImageButton
             android:id="@+id/detalhes_btn_observacoes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -147,8 +144,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/white"
-            android:text="+"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@android:color/holo_orange_dark"
             android:textColor="@android:color/holo_orange_dark"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -164,7 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="Total do pedido R$"
+            android:text="@string/detalhes_total_pedido"
             app:layout_constraintBottom_toBottomOf="@+id/detalhes_total_preco"
             app:layout_constraintEnd_toStartOf="@+id/detalhes_total_preco"
             app:layout_constraintStart_toStartOf="parent"
@@ -178,7 +175,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="0.0"
+            android:text="@string/detalhes_total_pedido_valor"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

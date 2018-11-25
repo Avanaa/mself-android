@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import br.com.avana.mself.fragment.CardapioFragment;
 import br.com.avana.mself.model.ItemModel;
 import com.crashlytics.android.Crashlytics;
+
+import br.com.avana.mself.model.ItemPedidoModel;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+        //testCrash();
 
         setContentView(R.layout.activity_main);
 
@@ -50,6 +53,10 @@ public class MainActivity extends AppCompatActivity
         navView.setNavigationItemSelectedListener(this);
     }
 
+    private void testCrash() {
+        throw new RuntimeException("Test crash report");
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)){
@@ -62,48 +69,53 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.nav_cart){
-            Intent intent;
-            intent = new Intent(this, CarrinhoActivity.class);
-            startActivity(intent);
+        Intent intent;
+        switch (item.getItemId()){
 
-        } else{
+            case R.id.nav_cart:
+                intent = new Intent(this, CarrinhoActivity.class);
+                intent.putExtra("carrinho", true);
+                startActivity(intent);
+                break;
 
-            switch (item.getItemId()){
+            case R.id.nav_hist:
+                intent = new Intent(this, CarrinhoActivity.class);
+                intent.putExtra("carrinho", false);
+                startActivity(intent);
+                break;
 
-                case R.id.nav_executivos:
-                    break;
+            case R.id.nav_executivos:
+                break;
 
-                case R.id.nav_peixes:
-                    break;
+            case R.id.nav_peixes:
+                break;
 
-                case R.id.nav_carnes:
-                    break;
+            case R.id.nav_carnes:
+                break;
 
-                case R.id.nav_saladas:
-                    break;
+            case R.id.nav_saladas:
+                break;
 
-                case R.id.nav_sanduiches:
-                    break;
+            case R.id.nav_sanduiches:
+                break;
 
-                case R.id.nav_petiscos:
-                    break;
+            case R.id.nav_petiscos:
+                break;
 
-                case R.id.nav_sobremesas:
-                    break;
+            case R.id.nav_sobremesas:
+                break;
 
-                case R.id.nav_refrigerantes:
-                    break;
+            case R.id.nav_refrigerantes:
+                break;
 
-                case R.id.nav_cervejas:
-                    break;
+            case R.id.nav_cervejas:
+                break;
 
-                case R.id.nav_vinhos:
-                    break;
+            case R.id.nav_vinhos:
+                break;
 
-                case R.id.nav_doses:
-                    break;
-            }
+            case R.id.nav_doses:
+                break;
         }
         drawer.closeDrawer(Gravity.START);
         return true;

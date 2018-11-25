@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -38,7 +39,7 @@ public class DetalhesActivity extends AppCompatActivity implements
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        Button btnQuantidade = findViewById(R.id.detalhes_btn_quantidade);
+        ImageButton btnQuantidade = findViewById(R.id.detalhes_btn_quantidade);
         btnQuantidade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +47,7 @@ public class DetalhesActivity extends AppCompatActivity implements
             }
         });
 
-        Button btnObservacoes = findViewById(R.id.detalhes_btn_observacoes);
+        ImageButton btnObservacoes = findViewById(R.id.detalhes_btn_observacoes);
         btnObservacoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,11 +55,13 @@ public class DetalhesActivity extends AppCompatActivity implements
             }
         });
 
-        String itemKey = getIntent().getStringExtra("itemKey");
+        String pedidoKey = getIntent().getStringExtra("pedidoKey");
+
         ItemModel itemModel = (ItemModel) getIntent().getSerializableExtra(getString(R.string.itemCardapio));
         if (itemModel != null){
             helper = new DetalhesHelper(this);
-            itemPedidoModel = helper.setItem(itemModel, itemKey);
+            itemPedidoModel = helper.setItem(itemModel);
+            itemPedidoModel.setKey(pedidoKey);
             getSupportActionBar().setTitle(itemPedidoModel.getTitulo());
         }
     }
@@ -84,6 +87,7 @@ public class DetalhesActivity extends AppCompatActivity implements
     }
 
     private void pedidoRealizado() {
+        itemPedidoModel.setStatus(ItemPedidoModel.Status.CRIADO.name());
         new PedidoDao().push(itemPedidoModel);
         finish();
     }

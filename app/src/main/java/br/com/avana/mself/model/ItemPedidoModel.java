@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class ItemPedidoModel extends ItemModel implements Serializable {
 
-    public enum Status { CRIADO, ENVIADO, EM_PREPARACAO, PRONTO, ENTREGUE, CONFIRMADO_ENTREGUE, CANCELADO }
+    public enum Status { CRIADO, ENVIADO, EM_PREPARACAO, PRONTO, ENTREGUE, CONFIRMADO_ENTREGUE, REGISTRADO, CANCELADO }
 
     private String ItemKey;
     private double precoPedido;
@@ -54,8 +54,7 @@ public class ItemPedidoModel extends ItemModel implements Serializable {
     public void setStatus(String status) { this.status = ItemPedidoModel.Status.valueOf(status); }
 
     @Override
-    public boolean equals(Object obj) {
-        ItemPedidoModel o = (ItemPedidoModel) obj;
-        return this.getKey().equals(o.getKey());
+    public boolean equals(Object o) {
+        return this.getItemKey().equals(((ItemPedidoModel) o).getItemKey());
     }
 }

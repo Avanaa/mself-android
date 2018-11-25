@@ -1,88 +1,93 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="br.com.avana.mself.MainActivity">
 
     <item
-        android:title="Pedidos"
+        android:title="@string/menu_carrinho"
         android:id="@+id/nav_cart"
+        android:icon="@drawable/ic_shopping_cart_ic"
+        />
+
+    <item
+        android:title="@string/menu_acompanhar_pedidos"
+        android:id="@+id/nav_hist"
         android:icon="@drawable/ic_shopping_cart_ic"
         />
 
     <group android:checkableBehavior="single">
 
         <item
-            android:title="Comidas">
+            android:title="@string/menu_comidas">
             <menu>
                 <item
                     android:id="@+id/nav_executivos"
                     android:icon="@drawable/ic_food"
-                    android:title="Pratos executivos" />
+                    android:title="@string/menu_pratos_executivos" />
 
                 <item
                     android:id="@+id/nav_peixes"
                     android:icon="@drawable/ic_food"
-                    android:title="Peixes e frutos do mar" />
+                    android:title="@string/menu_peixes_e_frutos_do_mar" />
 
                 <item
                     android:id="@+id/nav_carnes"
                     android:icon="@drawable/ic_food"
-                    android:title="Carnes" />
+                    android:title="@string/menu_carnes" />
 
                 <item
                     android:id="@+id/nav_saladas"
                     android:icon="@drawable/ic_food"
-                    android:title="Saladas" />
+                    android:title="@string/menu_saladas" />
             </menu>
         </item>
     </group>
 
     <group android:checkableBehavior="single">
         <item
-            android:title="Lanches, petiscos e sobremesas">
+            android:title="@string/menu_lanches_petiscos_e_sobremesas">
             <menu>
                 <item
                     android:id="@+id/nav_sanduiches"
                     android:icon="@drawable/ic_fast_food"
-                    android:title="Sanduiches" />
+                    android:title="@string/menu_sanduiches" />
 
                 <item
                     android:id="@+id/nav_petiscos"
                     android:icon="@drawable/ic_fast_food"
-                    android:title="Petiscos" />
+                    android:title="@string/menu_petiscos" />
 
                 <item
                     android:id="@+id/nav_sobremesas"
                     android:icon="@drawable/ic_fast_food"
-                    android:title="Sobremesas" />
+                    android:title="@string/menu_sobremesas" />
             </menu>
         </item>
     </group>
 
     <group android:checkableBehavior="single">
         <item
-            android:title="Bebidas">
+            android:title="@string/menu_bebidas">
             <menu>
                 <item
                     android:id="@+id/nav_refrigerantes"
                     android:icon="@drawable/ic_wine"
-                    android:title="Refrigerantes" />
+                    android:title="@string/menu_refrigerantes" />
 
                 <item
                     android:id="@+id/nav_cervejas"
                     android:icon="@drawable/ic_wine"
-                    android:title="Cervejas" />
+                    android:title="@string/menu_cervejas" />
 
                 <item
                     android:id="@+id/nav_vinhos"
                     android:icon="@drawable/ic_wine"
-                    android:title="Vinhos" />
+                    android:title="@string/menu_vinhos" />
 
                 <item
                     android:id="@+id/nav_doses"
                     android:icon="@drawable/ic_wine"
-                    android:title="Doses" />
+                    android:title="@string/menu_doses" />
 
             </menu>
         </item>

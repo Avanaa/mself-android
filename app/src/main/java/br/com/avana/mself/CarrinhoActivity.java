@@ -178,7 +178,7 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
     private void incluiItemCarrinho(ItemPedidoModel item) {
         if (!carrinho) {
             if (item.getStatus().equals(ItemPedidoModel.Status.ENVIADO.name())
-                    || item.getStatus().equals(ItemPedidoModel.Status.EM_PREPARACAO.name())
+                    || item.getStatus().equals(ItemPedidoModel.Status.PREPARANDO.name())
                     || item.getStatus().equals(ItemPedidoModel.Status.PRONTO.name())
                     || item.getStatus().equals(ItemPedidoModel.Status.ENTREGUE.name())) {
                 itensCarrinho.add(item);
@@ -199,7 +199,7 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
             }
             if (!carrinho){
                 if (item.getStatus().equals(ItemPedidoModel.Status.ENVIADO.name())
-                        || item.getStatus().equals(ItemPedidoModel.Status.EM_PREPARACAO.name())
+                        || item.getStatus().equals(ItemPedidoModel.Status.PREPARANDO.name())
                         || item.getStatus().equals(ItemPedidoModel.Status.PRONTO.name())
                         || item.getStatus().equals(ItemPedidoModel.Status.ENTREGUE.name())){
                     itensCarrinho.set(index, item);

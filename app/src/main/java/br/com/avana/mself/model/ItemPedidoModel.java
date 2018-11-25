@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class ItemPedidoModel extends ItemModel implements Serializable {
 
-    public enum Status { CRIADO, ENVIADO, EM_PREPARACAO, PRONTO, ENTREGUE, CONFIRMADO_ENTREGUE, REGISTRADO, CANCELADO }
+    public enum Status { CRIADO, ENVIADO, PREPARANDO, PRONTO, ENTREGUE, FINALIZADO, CANCELADO }
 
     private String ItemKey;
     private double precoPedido;

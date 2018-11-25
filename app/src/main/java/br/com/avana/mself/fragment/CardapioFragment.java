@@ -2,6 +2,7 @@ package br.com.avana.mself.fragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,28 +27,21 @@ import br.com.avana.mself.model.ItemModel;
 public class CardapioFragment extends Fragment implements ChildEventListener {
 
     private List<ItemModel> cardapio = new ArrayList<>();
-    private DatabaseReference dao;
 
     public CardapioFragment() {}
-
-    public static CardapioFragment newInstance() {
-        CardapioFragment fragment = new CardapioFragment();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dao = new ItemDao().getItemDao();
+        DatabaseReference dao = new ItemDao().getItemDao();
         dao.addChildEventListener(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_cardapio, container, false);
-        return inflate;
+        return inflater.inflate(R.layout.fragment_cardapio, container, false);
     }
 
     private void setList() {
@@ -60,7 +54,7 @@ public class CardapioFragment extends Fragment implements ChildEventListener {
     }
 
     @Override
-    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
         ItemModel itemModel = dataSnapshot.getValue(ItemModel.class);
 
         assert itemModel != null;
@@ -70,7 +64,7 @@ public class CardapioFragment extends Fragment implements ChildEventListener {
     }
 
     @Override
-    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) {
         ItemModel itemModel = dataSnapshot.getValue(ItemModel.class);
 
         assert itemModel != null;
@@ -81,7 +75,7 @@ public class CardapioFragment extends Fragment implements ChildEventListener {
     }
 
     @Override
-    public void onChildRemoved(DataSnapshot dataSnapshot) {
+    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
         ItemModel itemModel = dataSnapshot.getValue(ItemModel.class);
 
         assert itemModel != null;
@@ -91,7 +85,7 @@ public class CardapioFragment extends Fragment implements ChildEventListener {
     }
 
     @Override
-    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {
         ItemModel itemModel = dataSnapshot.getValue(ItemModel.class);
 
         assert itemModel != null;
@@ -101,7 +95,7 @@ public class CardapioFragment extends Fragment implements ChildEventListener {
     }
 
     @Override
-    public void onCancelled(DatabaseError databaseError) {
+    public void onCancelled(@NonNull DatabaseError databaseError) {
         Toast.makeText(getActivity(), R.string.erro_banco_aviso, Toast.LENGTH_LONG).show();
     }
 }

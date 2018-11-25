@@ -15,10 +15,8 @@ import android.view.Gravity;
 import android.view.MenuItem;
 
 import br.com.avana.mself.fragment.CardapioFragment;
-import br.com.avana.mself.model.ItemModel;
 import com.crashlytics.android.Crashlytics;
 
-import br.com.avana.mself.model.ItemPedidoModel;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity

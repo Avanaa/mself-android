@@ -3,8 +3,6 @@ package br.com.avana.mself.dao;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import br.com.avana.mself.model.ItemModel;
-
 public class ItemDao {
 
     private DatabaseReference itemDao;

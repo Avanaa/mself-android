@@ -1,5 +1,6 @@
 package br.com.avana.mself;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -23,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -40,12 +41,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(
-                LoginActivity.this, new OnSuccessListener<InstanceIdResult>() {
-                    @Override
-                    public void onSuccess(InstanceIdResult instanceIdResult) {
-                        String newToken = instanceIdResult.getToken();
-                        Log.e("new token", newToken);
-                    }
+                LoginActivity.this, instanceIdResult -> {
+                    String newToken = instanceIdResult.getToken();
+                    getSharedPreferences("_", Context.MODE_PRIVATE).edit().putString("newToken", newToken).apply();
                 }
         );
 

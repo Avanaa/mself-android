@@ -1,5 +1,6 @@
 package br.com.avana.mself;
 
+import android.content.Context;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.Objects;
 
 import br.com.avana.mself.dao.PedidoDao;
@@ -20,6 +24,7 @@ import br.com.avana.mself.dialog.QuantidadeDialog;
 import br.com.avana.mself.helper.DetalhesHelper;
 import br.com.avana.mself.model.ItemPedidoModel;
 import br.com.avana.mself.model.ItemModel;
+import br.com.avana.mself.service.MyFireaseMessageService;
 
 public class DetalhesActivity extends AppCompatActivity implements
         QuantidadeDialog.QuantidadeDialogListener,
@@ -39,20 +44,10 @@ public class DetalhesActivity extends AppCompatActivity implements
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         ImageButton btnQuantidade = findViewById(R.id.detalhes_btn_quantidade);
-        btnQuantidade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showQuantidadeDialog();
-            }
-        });
+        btnQuantidade.setOnClickListener(v -> showQuantidadeDialog());
 
         ImageButton btnObservacoes = findViewById(R.id.detalhes_btn_observacoes);
-        btnObservacoes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showObservacoesDialog();
-            }
-        });
+        btnObservacoes.setOnClickListener(v -> showObservacoesDialog());
 
         String pedidoKey = getIntent().getStringExtra("pedidoKey");
 
@@ -87,6 +82,7 @@ public class DetalhesActivity extends AppCompatActivity implements
 
     private void pedidoRealizado() {
         itemPedidoModel.setStatus(ItemPedidoModel.Status.CRIADO.name());
+        itemPedidoModel.setUsuario(MyFireaseMessageService.getToken(this));
         new PedidoDao().push(itemPedidoModel);
         finish();
     }

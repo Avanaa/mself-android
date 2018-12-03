@@ -89,5 +89,6 @@
     <string name="carrinho_codigo_mesa">Código da mesa: %s</string>
     <string name="carrinho_item_removido">Item removido do pedido</string>
     <string name="carrinho_acompanhe_pedido">Últimos pedidos enviados</string>
+    <string name="detalhes_pedido_enviado">Os itens foram salvos! Acesse o item de carrinho para mais detalhes ou para confirmar o envio do pedido</string>
 
 </resources>

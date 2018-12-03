@@ -84,6 +84,7 @@ public class DetalhesActivity extends AppCompatActivity implements
         itemPedidoModel.setStatus(ItemPedidoModel.Status.CRIADO.name());
         itemPedidoModel.setUsuario(MyFireaseMessageService.getToken(this));
         new PedidoDao().push(itemPedidoModel);
+        Toast.makeText(this, R.string.detalhes_pedido_enviado, Toast.LENGTH_LONG).show();
         finish();
     }
 

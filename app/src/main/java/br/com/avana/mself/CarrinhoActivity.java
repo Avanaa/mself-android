@@ -98,14 +98,11 @@ public class CarrinhoActivity extends AppCompatActivity implements ChildEventLis
 
                 Button button = findViewById(R.id.carrinho_btn_enviar);
                 button.setText(String.format(getString(R.string.carrinho_confirmar_pedido_botao), codigoMesa));
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        for (ItemPedidoModel item : itensCarrinho) {
-                            item.setMesa(codigoMesa);
-                            item.setStatus(ItemPedidoModel.Status.ENVIADO.name());
-                            dao.push(item);
-                        }
+                button.setOnClickListener(v -> {
+                    for (ItemPedidoModel item : itensCarrinho) {
+                        item.setMesa(codigoMesa);
+                        item.setStatus(ItemPedidoModel.Status.ENVIADO.name());
+                        dao.push(item);
                     }
                 });
             }

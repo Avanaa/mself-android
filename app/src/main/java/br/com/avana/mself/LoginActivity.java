@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
@@ -14,12 +15,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -33,10 +37,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-
-        //Fabric.with(this, new Crashlytics());
-
         setContentView(R.layout.activity_login);
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(
+                LoginActivity.this, new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        String newToken = instanceIdResult.getToken();
+                        Log.e("new token", newToken);
+                    }
+                }
+        );
 
         SignInButton loginButton = findViewById(R.id.login_btn_google);
         loginButton.setOnClickListener(this);
@@ -49,7 +60,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void updateUi(FirebaseUser account) {
-        //Intent intent = new Intent(this, CardapioActivity.class);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

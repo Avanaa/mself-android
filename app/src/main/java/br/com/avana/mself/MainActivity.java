@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-        //testCrash();
-
         setContentView(R.layout.activity_main);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -49,10 +46,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navView = findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener(this);
-    }
-
-    private void testCrash() {
-        throw new RuntimeException("Test crash report");
     }
 
     @Override

@@ -12,6 +12,7 @@ public class ItemPedidoModel extends ItemModel implements Serializable {
     private int quantidade;
     private String observacoes;
     private ItemPedidoModel.Status status;
+    private String usuario;
 
     public String getItemKey() {
         return ItemKey;
@@ -57,4 +58,13 @@ public class ItemPedidoModel extends ItemModel implements Serializable {
     public boolean equals(Object o) {
         return this.getItemKey().equals(((ItemPedidoModel) o).getItemKey());
     }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
 }
